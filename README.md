@@ -67,16 +67,29 @@ DB_PASSWORD=secret
 1. Скачиваем и устанавливаем [Docker Desktop](https://www.docker.com/products/docker-desktop)
 2. Убеждаемся что XAMPP выключен (либо не заняты порты 80 и 3306)
 3. Создаем папку в любом месте и переходим в нее.
-4. Выполняем клонирование репозитория ```git clone https://github.com/laradock/laradock```
-5. Переходим в папку склонированного репозитория ```laradock```
-6. Копируем .env.example в .env
-7. Выполняем команду ```docker-compose up -d php-fpm nginx mysql workspace``` и дожидаемся сборки контейнеров
-8. Исполняем команду ```docker-compose exec --user=laradock workspace bash```.
+4. Создаем папку `laravelapp`
+5. Выполняем клонирование репозитория ```git clone https://github.com/laradock/laradock```
+6. Переходим в папку склонированного репозитория ```laradock```
+7. Копируем .env.example в .env
+8. В файле .env заменяем 
+```dotenv
+APP_CODE_PATH_HOST=../laravelapp
+```
+9. Выполняем команду ```docker-compose up -d php-fpm nginx mysql workspace``` и дожидаемся сборки контейнеров
+10. Исполняем команду ```docker-compose exec --user=laradock workspace bash```.
 Это переход к рабочей среде, где мы будем выполнять все наши команды.
-9. Исполняем команду ```composer create-project laravel/laravel:^8.0 .```
-10. В файле .env производим настройку подключения базы данных. В качестве хост адреса для подключения к базе данных указываем ```mysql```, пользователь и база данных ```default```, пароль ```secret```
-11. Проверяем доступность по адресу http://localhost
-12. Исполняем команду ```php artisan migrate``` (Создание базовой схемы базы данных, заодно проверяем правильность настройки конфига подключения к БД)
+11. Исполняем команду ```composer create-project laravel/laravel:^9.0 .```
+12. В файле .env производим настройку подключения базы данных.
+```dotenv
+DB_CONNECTION=mysql
+DB_HOST=mysql
+DB_PORT=3306
+DB_DATABASE=default
+DB_USERNAME=default
+DB_PASSWORD=secret
+```
+13. Проверяем доступность по адресу http://localhost
+14. Исполняем команду ```php artisan migrate``` (Создание базовой схемы базы данных, заодно проверяем правильность настройки конфига подключения к БД)
 
 Для пользователей Windows рекомендовано [включить WSL](https://docs.docker.com/desktop/windows/wsl/), но не обязательно.
 
@@ -84,7 +97,7 @@ DB_PASSWORD=secret
 
 1. Устанавливаем VirtualBox
 2. Устанавливаем Vagrant
-3. Переходим на [официальную документацию](https://laravel.com/docs/8.x/homestead) и следуем инструкции
+3. Переходим на [официальную документацию](https://laravel.com/docs/9.x/homestead) и следуем инструкции
 
 
 # Ссылки
@@ -93,9 +106,9 @@ DB_PASSWORD=secret
 * (*) - Рекомендую держать открытым во время лекции
 
 
-* [Структура Laravel](https://laravel.com/docs/8.x/structure) (!)
-* [Документация Laravel](https://laravel.com/docs/8.x). Используем 8 версию Laravel. (*)
-* [Laravel Homestead](https://laravel.com/docs/8.x/homestead)
+* [Структура Laravel](https://laravel.com/docs/9.x/structure) (!)
+* [Документация Laravel](https://laravel.com/docs/9.x). (*)
+* [Laravel Homestead](https://laravel.com/docs/9.x/homestead)
 * [Laradock quick-start](https://sam-ngu.medium.com/laradock-quick-start-laravel-docker-tutorial-d1bbb7796a7)
 * [Документация Laradock](https://laradock.io/getting-started/)
 * [Плагин Laravel для PHPStorm](https://plugins.jetbrains.com/plugin/7532-laravel)
