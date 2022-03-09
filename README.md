@@ -26,31 +26,57 @@
 
 ## Old-School путь
 
-1. Устанавливаем XAMPP
-2. Убеждаемся, что все необходимые модули включены
-3. Устанавливаем Composer
-4. Переходим в папку .../xampp/htdocs
-5. Исполняем команду ```composer create-project laravel/laravel:^8.0 .```. Создаст проект Laravel в текущей директории.
-6. Переходим в папку .../xampp/htdocs/your-app
-7. В файле .env производим настройку подключения базы данных
-8. Исполняем команду ```php artisan serve```
-9. Проверяем доступность по адресу http://localhost:8000 или же http://localhost/your-app/public
+1. Устанавливаем [XAMPP](https://www.apachefriends.org/ru/index.html)
+2. Убеждаемся, что все необходимые модули включены (На последней версии XAMPP ничего включать не нужно)
+3. Устанавливаем [Composer](https://getcomposer.org/download/)
+4. Исполняем команду ```composer global require laravel/installer```
+5. Переходим в папку .../xampp/apache/conf/extra
+6. Редактируем файл `httpd-vhosts.conf`
+```apacheconf
+<VirtualHost *:80>
+    ServerAdmin help@laravelapp.local
+    DocumentRoot "C:/xampp/htdocs/laravelapp/public"
+    ServerName laraveapp.local
+</VirtualHost>
+```
+7. Редактируем файл `C:\Windows\System32\drivers\etc`, не забываем про права администратора.
+```
+127.0.0.1 laravelapp.local
+```
+8. Заходим в управление MySQL, создаем базу данных `default` и пользователя для этой базы данных `default` с паролем `secret`
+9. Переходим в папку .../xampp/htdocs
+10. Исполняем команду ```laravel new laravelapp```
+11. Переходим в папку .../xampp/htdocs/laravelapp
+12. В файле .env производим настройку подключения базы данных
+```dotenv
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=default
+DB_USERNAME=default
+DB_PASSWORD=secret
+```
+13. Перезапускаем apache сервис
+14. Проверяем доступность по адресу http://laravelapp.local
+15. Исполняем команду ```php artisan migrate``` (Создание базовой схемы базы данных, заодно проверяем правильность настройки конфига подключения к БД)
 
 ## Современный путь
 
 ### Контейнеризация
 
 1. Скачиваем и устанавливаем [Docker Desktop](https://www.docker.com/products/docker-desktop)
-2. Создаем папку в любом месте и переходим в нее.
-3. Выполняем клонирование репозитория ```git clone https://github.com/laradock/laradock```
-4. Переходим в папку склонированного репозитория ```laradock```
-5. Копируем .env.example в .env
-6. Выполняем команду ```docker-compose up -d php-fpm nginx mysql workspace``` и дожидаемся сборки контейнеров
-7. Исполняем команду ```docker-compose exec --user=laradock workspace bash```.
+2. Убеждаемся что XAMPP выключен (либо не заняты порты 80 и 3306)
+3. Создаем папку в любом месте и переходим в нее.
+4. Выполняем клонирование репозитория ```git clone https://github.com/laradock/laradock```
+5. Переходим в папку склонированного репозитория ```laradock```
+6. Копируем .env.example в .env
+7. Выполняем команду ```docker-compose up -d php-fpm nginx mysql workspace``` и дожидаемся сборки контейнеров
+8. Исполняем команду ```docker-compose exec --user=laradock workspace bash```.
 Это переход к рабочей среде, где мы будем выполнять все наши команды.
-8. Исполняем команду ```composer create-project laravel/laravel:^8.0 .```
-9. В файле .env производим настройку подключения базы данных. В качестве хост адреса для подключения к базе данных указываем ```mysql```, пользователь и база данных ```default```, пароль ```secret```
-10. Проверяем доступность по адресу http://localhost
+9. Исполняем команду ```composer create-project laravel/laravel:^8.0 .```
+10. В файле .env производим настройку подключения базы данных. В качестве хост адреса для подключения к базе данных указываем ```mysql```, пользователь и база данных ```default```, пароль ```secret```
+11. Проверяем доступность по адресу http://localhost
+12. Исполняем команду ```php artisan migrate``` (Создание базовой схемы базы данных, заодно проверяем правильность настройки конфига подключения к БД)
 
 Для пользователей Windows рекомендовано [включить WSL](https://docs.docker.com/desktop/windows/wsl/), но не обязательно.
 
