@@ -98,3 +98,5 @@ DB_PASSWORD=secret
 * [Laravel Homestead](https://laravel.com/docs/8.x/homestead)
 * [Laradock quick-start](https://sam-ngu.medium.com/laradock-quick-start-laravel-docker-tutorial-d1bbb7796a7)
 * [Документация Laradock](https://laradock.io/getting-started/)
+* [Плагин Laravel для PHPStorm](https://plugins.jetbrains.com/plugin/7532-laravel)
+* [Пакет IDE Helper для PHPStorm](https://github.com/barryvdh/laravel-ide-helper)
