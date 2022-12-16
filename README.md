@@ -39,7 +39,7 @@
     ServerName laraveapp.local
 </VirtualHost>
 ```
-7. Редактируем файл `C:\Windows\System32\drivers\etc`, не забываем про права администратора.
+7. Редактируем файл `C:\Windows\System32\drivers\etc\hosts`, не забываем про права администратора.
 ```
 127.0.0.1 laravelapp.local
 ```
