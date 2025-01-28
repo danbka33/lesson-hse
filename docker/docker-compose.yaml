@@ -1,0 +1,47 @@
+services:
+  nginx:
+    image: nginx:1.27.3
+    ports:
+      - '80:80'
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ${WORK_DIR}:/var/www
+    depends_on:
+      - php-fpm
+
+  php-fpm:
+    build:
+      dockerfile: Dockerfile
+      context: .
+      target: php-fpm
+    command:
+      - php-fpm
+    depends_on:
+      - mysql
+    volumes:
+      - ${WORK_DIR}:/var/www
+
+  workspace:
+    build:
+      dockerfile: Dockerfile
+      context: .
+      target: workspace
+    depends_on:
+      - mysql
+    volumes:
+      - ${WORK_DIR}:/var/www
+
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+    volumes:
+      - mysql-data:/var/lib/mysql
+    ports:
+      - 3306:3306
+
+volumes:
+  mysql-data:

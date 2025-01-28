@@ -67,27 +67,24 @@ DB_PASSWORD=secret
 1. Скачиваем и устанавливаем [Docker Desktop](https://www.docker.com/products/docker-desktop)
 2. Убеждаемся что XAMPP выключен (либо не заняты порты 80 и 3306)
 3. Создаем папку в любом месте и переходим в нее.
-4. Создаем папку `laravelapp`
-5. Выполняем клонирование репозитория ```git clone https://github.com/laradock/laradock```
-6. Переходим в папку склонированного репозитория ```laradock```
+5. Выполняем клонирование репозитория ```git clone https://github.com/danbka33/lesson-hse.git```
+6. Переходим в папку склонированного репозитория ```lesson-hse```
+7. Создаем папку ```laravelapp```
+8. Переходим в папку ```docker```
 7. Копируем .env.example в .env
-8. В файле .env заменяем 
-```dotenv
-APP_CODE_PATH_HOST=../laravelapp
-```
-9. Выполняем команду ```docker-compose up -d php-fpm nginx mysql workspace``` и дожидаемся сборки контейнеров
-10. Исполняем команду ```docker-compose exec --user=laradock workspace bash```.
-Это переход к рабочей среде, где мы будем выполнять все наши команды.
-11. Исполняем команду ```composer create-project laravel/laravel:^9.0 .```
-12. В файле .env производим настройку подключения базы данных.
+8. В файле .env вносим необходимые изменения (если требуется)
+9. Выполняем команду ```docker-compose up -d mysql workspace``` и дожидаемся сборки и запуска контейнеров
+10. Исполняем команду для инициализации проекта Laravel ```docker-compose exec workspace composer create-project laravel/laravel:11.0 .```.
+12. В файле ```laravelapp/.env``` производим настройку подключения базы данных.
 ```dotenv
 DB_CONNECTION=mysql
 DB_HOST=mysql
 DB_PORT=3306
-DB_DATABASE=default
-DB_USERNAME=default
-DB_PASSWORD=secret
+DB_DATABASE=laravel
+DB_USERNAME=user
+DB_PASSWORD=password
 ```
+13. Выполняем команду ```docker-compose up -d``` для запуска всех компонентов системы
 13. Проверяем доступность по адресу http://localhost
 14. Исполняем команду ```php artisan migrate``` (Создание базовой схемы базы данных, заодно проверяем правильность настройки конфига подключения к БД)
 
