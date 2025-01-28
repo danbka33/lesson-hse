@@ -104,8 +104,8 @@ DB_PASSWORD=password
 * (*) - Рекомендую держать открытым во время лекции
 
 
-* [Структура Laravel](https://laravel.com/docs/9.x/structure) (!)
-* [Документация Laravel](https://laravel.com/docs/9.x). (*)
+* [Структура Laravel](https://laravel.com/docs/11.x/structure) (!)
+* [Документация Laravel](https://laravel.com/docs/11.x). (*)
 * [Laravel Homestead](https://laravel.com/docs/9.x/homestead)
 * [Laradock quick-start](https://sam-ngu.medium.com/laradock-quick-start-laravel-docker-tutorial-d1bbb7796a7)
 * [Документация Laradock](https://laradock.io/getting-started/)
